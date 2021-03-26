@@ -1,89 +1,45 @@
-/* file_copy.c
-  
-   This program copies the contents of 
-   one file to another.
+/*
+	file_copy.c
 
-   Author: Adarsh
+	This program demonstrates how to
+	copy contents of one file to 
+	another.
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-void getinput(char* address)
+int main(int argc, char *argv[])
 {
-	printf("Enter address of the file:\n");
-	char c = EOF;
-	int length = 2;
-	int i = 0;
-
-	while ((c = getchar()) != EOF && c != '\n')
+	if (argc != 3)
 	{
-		address[i] = c;
-		i++;
-
-		if (i == length)
-		{
-			length++;
-			address = realloc(address, length * sizeof(char));
-		}
-	}
-	address[i] = '\0';
-}
-
-void target_address(char* target)
-{
-	int pos = 0;
-	for (int i = strlen(target) - 1; i >= 0; i--)
-	{
-		if (target[i] == '.')
-		{
-			pos = i;
-			break;
-		}
+		printf("Invalid/no source and/or destination filename given. Try again.\n");
+		return 1;
 	}
 
-	for (int i = strlen(target); i >= pos + 1; i--)
-		target[i] = target[i - 1];
-	target[pos] = '2';
-}
-
-int main()
-{
-	FILE *fs, *ft;
-	char ch;	
-	char *address = malloc(sizeof(char));
-	char *target;
-
-	input:
+	FILE *fp_read = fopen(argv[1], "r");
+	if (!fp_read)
 	{
-		getinput(address);
+		printf("No such file exists. Try again.\n");
+		return 2;
 	}
 
-	fs = fopen(address, "r");
-	if (fs == NULL)
+	FILE *fp_write = fopen(argv[2], "w");
+
+	if (!fp_write)
 	{
-		printf("\nFile not found. Rebooting\n");
-		goto input;
+		printf("Cannot open target file. Try again.\n");
+		fclose(fp_read);
+		return 3;
 	}
-	printf("\nThe address you entered:\n%s\n", address);
+	char c;
 
-	target = malloc(sizeof(address) + 5);
-	strcpy(target, address);
-	target_address(target);
-
-	ft = fopen(target, "w");
-
-	do
+	while ((c = fgetc(fp_read)) != EOF)
 	{
-		ch = fgetc(fs);
+		printf("%c", c);
+		fputc(c, fp_write);
+	}
+	fclose(fp_read);
+	fclose(fp_write);
 
-		if (ch != EOF)
-			fputc(ch, ft);
-	} while(ch != EOF);
-
-	printf("\nFile successfully cloned in directory!");
-
-	fclose(fs);
-	fclose(ft);
+	return 0;
 }
