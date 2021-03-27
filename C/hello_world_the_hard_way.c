@@ -1,12 +1,11 @@
 #include <stdio.h>
+#define DISTANCE 100
 
 /* this is a comment*/
 int main(int argc, char *argv[])
 {
-	int distance = 100;
-
 	// This is also a comment
-	printf("You are %d miles away", distance);
+	printf("You are %d miles away", DISTANCE);
 
 	return 0;
 }
