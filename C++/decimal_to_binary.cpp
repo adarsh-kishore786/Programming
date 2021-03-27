@@ -1,25 +1,43 @@
 /*
 	decimal_to_binary.cpp
 
-	This program reads a number from
-	user and converts it to binary.
+	Accepts a number in decimal and prints
+	its binary.
 */
 
 #include <iostream>
+#include <string>
 
-void toBinary(unsigned int n)
+using namespace std;
+
+string bin_(int n)
 {
-	if (n > 1)
-		toBinary(n / 2);
-	std::cout << n % 2; 
+	if (n == 0)
+		return "0";
+	return "1";
 }
 
-int main()
+string dec_to_bin(int n)
 {
-	int n {};
-	std::cout << "Enter a number: ";
-	std::cin >> n;
+	if (n < 2)
+		return bin_(n);
 
-	std::cout << "Number in binary: ";
-	toBinary(n);
+	return dec_to_bin(n / 2) + bin_(n % 2);
+}
+
+int main(int argc, char **argv)
+{
+	if (argc <= 1)
+	{
+		cout << "No arguments given to convert. Try again." << endl;
+		return 1;
+	}
+
+	for (int i = 1; i < argc; i++)
+	{
+
+		cout << argv[i] << ": " << dec_to_bin(stoi(argv[i])) << endl;
+	}
+
+	return 0;
 }
