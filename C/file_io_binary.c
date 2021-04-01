@@ -1,46 +1,107 @@
-/* file_io_binary.c
+/*
+	file_io_binary.c
 
-   This program demonstrates IO
-   functions in a binary file.
-
-   Author: Adarsh
+	Reads and stores data in a binary file.
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-struct emp
+typedef struct Employee
 {
 	char name[40];
 	int age;
-	float bs;
-};
+	float salary;
+} emp;
 
-int main()
+void error(int x)
 {
-	FILE *fp;
-	struct emp e;
+	switch(x)
+	{
+		case 1: printf("Invalid/no file given. Try again.\n");
+				exit(1);
+		case 2: printf("Invalid/no read/write options given. Try again.\n");
+				exit(2);
+		case 3: printf("Cannot open file. Try again.\n");
+				exit(3);
+	}
 
-	fp = fopen("employee.dat", "wb");
+	printf("An error occured. Try again.\n");
+	exit(4);
+}
 
-	printf("Enter name of employee: ");
-	gets(e.name);
-	fflush(stdin);
+void operFile(FILE *fp)
+{
+	if (!fp)
+		error(3);
 
-	printf("Enter age of employee: ");
-	scanf("%d", &(e.age));
-	fflush(stdin);
+	printf("Enter number of employees: ");
+	int n;
+	fscanf(stdin, "%d", &n);
 
-	printf("Enter basic salary of employee: ");
-	scanf("%f", &(e.bs));
-	fflush(stdin);
+	for (int i = 0; i < n; i++)
+	{
+		emp e;
+		printf("Name  : ");
+		fscanf(stdin, "%s", e.name);
 
-	fwrite(&e, sizeof(e), 1, fp);
-	fclose(fp);
+		printf("Age   : ");
+		fscanf(stdin, "%d", &e.age);
 
-	fp = fopen("employee.dat", "rb");
-	while (fread(&e, sizeof(e), 1, fp) == 1)
-		printf("Name: %s\nAge: %d\nSalary: %f\n", 
-			e.name, e.age, e.bs);
+		printf("Salary: ");
+		fscanf(stdin, "%f", &e.salary);
 
-	fclose(fp);
+		fwrite(&e, sizeof(e), 1, fp);
+		printf("\n");
+	}
+}
+
+int main(int argc, char **argv)
+{
+	if (argc != 3)
+		error(1);
+
+	if (!strcmp(argv[2], "r"))
+	{
+		FILE *fp_read = fopen(argv[1], "rb");
+
+		if (!fp_read)
+			error(3);
+
+		emp e;
+		while (fread(&e, sizeof(e), 1, fp_read) == 1)
+		{
+			printf("Name  : %s\n", e.name);
+			printf("Age   : %d\n", e.age);
+			printf("Salary: %f\n\n", e.salary);
+		}
+		fclose(fp_read);
+	}
+	else if (!strcmp(argv[2], "a"))
+	{
+		FILE *fp_append = fopen(argv[1], "ab");
+
+		operFile(fp_append);
+		fclose(fp_append);
+	}
+	else if (!strcmp(argv[2], "w"))
+	{
+		printf("This will overwrite any existing files.\n");
+		printf("For appending use 'a' instead of 'w'.\n");
+		printf("Continue anyway? (Y/N) ");
+		char ch;
+
+		fscanf(stdin, "%c", &ch);
+		if (ch != 'Y' && ch != 'y')
+			exit(0);
+
+		FILE *fp_write = fopen(argv[1], "wb");
+		operFile(fp_write);
+		fclose(fp_write);
+	}
+	else
+		error(2);
+
+	return 0;
 }

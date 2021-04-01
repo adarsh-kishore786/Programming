@@ -18,6 +18,7 @@ typedef struct file_data
 	int num_alpha;
 	int num_digit;
 	int num_special;
+	int num_word;
 } file_data;
 
 int main(int argc, char *argv[])
@@ -49,7 +50,10 @@ int main(int argc, char *argv[])
 		else if (ch == '\t')
 			fd.num_tab++;
 		else if (ch == ' ')
+		{
 			fd.num_space++;
+			fd.num_word++;
+		}
 		else if (isalpha(ch))
 			fd.num_alpha++;
 		else if (isdigit(ch))
@@ -57,6 +61,7 @@ int main(int argc, char *argv[])
 		else
 			fd.num_special++;
 	}
+	fd.num_word++;
 
 	printf("\n\n");
 	printf("Number of characters: %d\n", fd.num_char);
@@ -65,6 +70,7 @@ int main(int argc, char *argv[])
 	printf("Number of alphabets : %d\n", fd.num_alpha);
 	printf("Number of digits    : %d\n", fd.num_digit);
 	printf("Number of special ch: %d\n", fd.num_special);
+	printf("Number of words     : %d\n", fd.num_word);
 
 	return 0;
 }
