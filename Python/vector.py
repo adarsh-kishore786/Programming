@@ -292,7 +292,7 @@ class Vector:
 		"""
 		Returns the angle between two vectors of the 
 		same dimension in radians.
-		
+			
 		>>> v1 = Vector([3, 5])
 		>>> v2 = Vector([-5, 3])
 		>>> Vector.angle(v1, v2)
