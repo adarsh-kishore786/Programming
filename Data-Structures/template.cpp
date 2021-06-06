@@ -50,4 +50,6 @@ int main()
     cout << double(max(2.5, 1.01)) << endl;
     cout << char(max('A', 'a')) << endl;
     cout << Cents(max(nickle, dime)) << endl;
+
+    cout << "Hello, World!" << endl;
 }
