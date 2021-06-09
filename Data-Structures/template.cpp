@@ -36,7 +36,7 @@ public:
 };
 
 template <typename T>
-T& max(T& x, T& y)
+T& max_(T& x, T& y)
 {
     return (x > y) ? x : y;
 }
@@ -46,10 +46,14 @@ int main()
     Cents nickle { 5 };
     Cents dime { 10 };
 
-    cout << int(max(2, 3)) << endl;
-    cout << double(max(2.5, 1.01)) << endl;
-    cout << char(max('A', 'a')) << endl;
-    cout << Cents(max(nickle, dime)) << endl;
+    int a = 2, b = 3;
+    double c = 2.5, d = 1.01;
+    char e = 'A', f = 'a';
+
+    cout << int(max_(a, b)) << endl;
+    cout << double(max_(c, d)) << endl;
+    cout << char(max_(e, f)) << endl;
+    cout << Cents(max_(nickle, dime)) << endl;
 
     cout << "Hello, World!" << endl;
 }
