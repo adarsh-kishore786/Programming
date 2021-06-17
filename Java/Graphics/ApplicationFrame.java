@@ -16,9 +16,6 @@ public class ApplicationFrame extends Frame
 
     protected void createUI()
     {
-        setSize(500, 400);
-        center();
-
         addWindowListener(new WindowAdapter()
         {
             public void windowClosing(WindowEvent e)
