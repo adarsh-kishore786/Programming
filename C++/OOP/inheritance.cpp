@@ -1,36 +1,37 @@
-/*
-	inheritance.cpp
-
-	This program demonstrates concept of 
-	inheritance.
-*/
-
+// We'll be using this often enough for demo
 #include <iostream>
-#include <string>
-using namespace std;
 
-class Vehicle
+class Base
 {
 public:
-	string brand = "Ford";
+	int m_id;
 
-	void honk()
-	{
-		cout << "Tuut, tuut!\n";
-	}
+	Base(int id = 0): m_id { id } {}
+	
+	int getId() const { return m_id; }
 };
 
-class Car : public Vehicle
+class Derived: public Base
 {
 public:
-	string model = "Mustang";
+	double m_cost;
+
+	Derived(double cost = 0.0) : 
+		m_cost { cost } {}
+
+	// Overloaded constructor for initializing parent
+	Derived(double cost = 0.0, int id=0): 
+		Base{ id }, m_cost { cost }
+	{} 
+
+	double getCost() const { return m_cost; }
 };
 
 int main()
 {
-	Car myCar;
-	myCar.honk();
-	cout << myCar.brand << " " << myCar.model << endl;
+	Derived derived{ 1.3, 5 };
+	std::cout << "Id: " << derived.getId() << "\n";
+	std::cout << "Cost: " << derived.getCost() << "\n";
 
 	return 0;
 }
