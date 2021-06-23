@@ -12,7 +12,6 @@
 
 using vector = std::vector<int>;
 using Comparision = bool (*)(int, int);
-// Alternatively we
 
 bool ascending(int x, int y)
 {
