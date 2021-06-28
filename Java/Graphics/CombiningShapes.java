@@ -29,6 +29,7 @@ public class CombiningShapes extends JComponent {
                 repaint();
             }
         });
+
         controls.add(mOptions);
         add(controls, BorderLayout.SOUTH);
     }
