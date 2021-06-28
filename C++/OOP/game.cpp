@@ -70,7 +70,7 @@ private:
     static const Creature& getDefaultCreature(Type type)
     {
         static std::array<Creature, static_cast<std::size_t>(Type::max_types)> monsterData {
-          {  { "dragon", 'D', 20, 4, 100 },
+          {  { "dragon", 'D', 10, 4, 100 },
              { "orc", 'o', 4, 2, 25 },
              { "slime", 's', 1, 1, 10 } }
         };
@@ -90,23 +90,144 @@ public:
     }
 };
 
+void printStatus(const Player& p)
+{
+    int health = p.getHealth();
+    if (p.getHealth() < 0)
+        health = 0;
+    std::cout << "You have " << health << " health and are carrying "
+             << p.getGold() << " gold.\n";
+}
+
+bool runAwaySuccessful()
+{
+    double val = std::rand()/(RAND_MAX * 1.0);
+    return (val > 0.5);
+}
+
+void gameOver(const Player& p)
+{
+    std::cout << "Sorry, you lost!\n";
+    printStatus(p);
+    exit(0);
+}
+
+void levelUp(Player& p, Monster& m)
+{
+    std::cout << m.getName() << " is dead!\n";
+    std::cout << "You got " << m.getGold() << " gold!\n";
+    p.addGold(m.getGold());
+    p.levelUp();
+    std::cout << "You levelled upto level " << p.getLevel() << "!\n\n";
+}
+
+void attackPlayer(Player& p, const Monster& m)
+{
+    int damage = m.getDamagePerMove();
+    std::cout << m.getName() << " attacked! You lost " << damage << " HP.\n";
+    p.reduceHealth(damage);
+
+    if (p.getHealth() <= 0)
+        gameOver(p);
+}
+
+void attackMonster(Player& p, Monster& m)
+{
+    std::cout << "You attacked first! ";
+
+    std::cout << m.getName() << " lost " << p.getDamagePerMove() << " HP.\n";
+
+    m.reduceHealth(p.getDamagePerMove());
+    if (m.getHealth() <= 0)
+        levelUp(p, m);
+
+    if (m.getHealth() > 0) attackPlayer(p, m);
+}
+
+bool runAway(Player& p, Monster& m)
+{
+    if (runAwaySuccessful())
+    {
+        std::cout << "You ran away!\n\n";
+        return true;
+    }
+    std::cout << "You failed to run!\n\n";
+    attackPlayer(p, m);
+    return false;
+}
+
+bool isWon(Player& p)
+{
+    return p.getLevel() >= 20;
+}
+
+char getChoice()
+{
+    char choice {};
+    do 
+    { 
+        std::cout << "Would you like to (R)un or (F)ight?: ";
+        std::cin >> choice;
+
+        if (choice != 'r' && choice != 'R' && choice != 'f' && choice != 'F')
+            std::cout << "That's an invalid choice. Try again.\n\n";
+    }
+    while (choice != 'r' && choice != 'R' && choice != 'f' && choice != 'F');
+
+    return choice;
+}
+
+void battle(Player& p, Monster& m)
+{
+    while (p.getHealth() > 0 && m.getHealth() > 0)
+    {
+        char choice { getChoice() };
+        if (choice == 'r' || choice == 'R')
+        {
+            if (runAway(p, m))
+                return;
+        }
+        else
+            attackMonster(p, m);
+    }
+}
+
+Monster createMonster()
+{
+    Monster m{ Monster::getRandomMonster() };
+    std::cout << "A " << m.getName() << " (" << m.getSymbol() << ") was created.\n";    
+
+    return m;
+}
+
+Player createPlayer()
+{
+    std::cout << "Enter your name: ";
+    std::string name {};
+    std::cin >> name;
+
+    Player pl { name };
+    std::cout << "Welcome, " << pl.getName() << " to the Dungeon Raider!\n\n";
+
+    return pl;
+}
+
 int main()
 {
-    // std::cout << "Enter your name: ";
-    // std::string name {};
-    // std::cin >> name;
-
-    // Player pl { name };
-    // std::cout << "Welcome, " << pl.getName() << "\n";
-    // std::cout << "You have " << pl.getHealth() << " health and are carrying "
-    //          << pl.getGold() << " gold.\n";
-
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::rand();
 
-    for (int i = 0; i < 10; i++)
+    Player pl { createPlayer() }; 
+    while (pl.getHealth() > 0 && pl.getLevel() < 20)
     {
-        Monster m { Monster::getRandomMonster() };
-        std::cout << "A " << m.getName() << " (" << m.getSymbol() << ") was created.\n";
+        printStatus(pl);
+        Monster m { createMonster() };
+        battle(pl, m);
+    }
+
+    if (isWon(pl))
+    {
+        std::cout << "You won! Your final stats are:\n";;
+        printStatus(pl);
     }
 }
