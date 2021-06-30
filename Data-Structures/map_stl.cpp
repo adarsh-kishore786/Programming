@@ -4,7 +4,7 @@
     This program demonstrates map
     data structure in C++ STL. A map
     is like a dictionary which was used 
-    in Python.
+    in Python. A map keeps its keys in sorted order always.
 */
 
 #include <bits/stdc++.h>
@@ -25,7 +25,7 @@ int main()
     m.insert(pair<int, int>(1, 40));
     m.insert(pair<int, int>(2, 30));
     m.insert(pair<int, int>(3, 60));
-    m.insert(pair<int, int>(4, 20));
+    m.insert(pair<int, int>(8, 20));
     m.insert(pair<int, int>(5, 50));
     m.insert(pair<int, int>(6, 50));
     m.insert(pair<int, int>(7, 10));
