@@ -70,7 +70,6 @@ public class Password
                         sc.close();
                         return true;
                     }
-                    break;
                 }
             }
         }
