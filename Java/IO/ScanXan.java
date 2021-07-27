@@ -10,6 +10,7 @@ public class ScanXan
         try
         {
             sc = new Scanner(new BufferedReader(new FileReader("xanadu.txt")));
+            sc.useDelimiter(":");
 
             while (sc.hasNext())
                 System.out.println(sc.next());

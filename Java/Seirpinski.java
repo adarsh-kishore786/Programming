@@ -33,8 +33,8 @@ public class Seirpinski
             setPenColor(currPoint);
             
             currPoint.draw();
+            StdDraw.show();
         }
-        StdDraw.show();
     }
 
     public static void main(String[] args) 

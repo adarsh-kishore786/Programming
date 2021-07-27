@@ -1,0 +1,11 @@
+#!/bin/bash
+s1="one";
+s2="two";
+s3=${s1}${s2};
+echo $s3;
+
+# concatenating multiple strings using parameter
+# expansion
+s=("one" "two" "three" "you are a fool");
+echo ${s[@]}
+

@@ -59,6 +59,15 @@ public class Body
         return new Force(gravitationalField(x).scale(m));
     }
 
+    public double gravitationalPotential(double m, Position x)
+    {
+        double dist = Vector.distance(r, x);
+        assert !DoubleComp.equals(dist, 0) : "Distance between the points is zero";
+
+        double mag = (G * mass) / dist;
+        return mag;
+    }
+
     public static void main(String[] args)
     {
         Body b = new Body(4, 1, 2);
@@ -66,7 +75,7 @@ public class Body
         StdOut.println(b.G);
 
         double m = 4;
-        double[] r = {2, 5};
+        double[] r = {1, 5};
         Position x = new Position(r);
 
         Force f = b.gravitationalForce(m, x);
@@ -78,5 +87,7 @@ public class Body
                                 " is " + f.toString() + " N ");
         StdOut.println("The force has magnitude " + f.mag() + " and makes angle " + 
                             Vector.angle(f, ihat) + "\u00b0 with X axis.");
+        StdOut.println("The gravitational potential at " + x.toString() + " is " + 
+                                b.gravitationalPotential(m, x));
     }
 }

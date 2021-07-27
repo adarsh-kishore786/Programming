@@ -27,13 +27,13 @@ public class Barnsley
             currPoint.draw();
 
             currPoint = getNext(currPoint);
+            StdDraw.show();
         }
-        StdDraw.show();
     }
 
     public static void main(String[] args) 
     {
-        int NUM_ITER = 100000;
+        int NUM_ITER = 10000;
         StdDraw.enableDoubleBuffering();
 
         StdDraw.setScale(-0.5, 1.5);

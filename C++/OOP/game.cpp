@@ -4,6 +4,11 @@
 #include <cstdlib>
 #include <ctime>
 
+class Potion
+{
+
+};
+
 class Creature
 {
 protected:
