@@ -1,0 +1,49 @@
+#!/bin/bash
+
+chr() 
+{
+  [ "$1" -lt 256 ] || return 1
+  printf "\\$(printf '%03o' "$1")"
+}
+
+ord() 
+{
+  LC_CTYPE=C printf '%d' "'$1"
+}
+
+seq()
+{
+    local ubound=${#1}
+    for i in $( eval echo {0..$(( ${ubound} - 1 ))} )
+    do
+	echo $i
+    done
+}
+
+caesar()
+{
+    local instr="$@"
+    local rot=$2
+    for i in $( seq ${instr} )
+    do
+	var=${instr:$i:1}
+	chr $(( ($(ord ${var}) + $rot) % 256 ))
+    done
+    echo ""
+}
+
+if [ $# -ne 2 ]; then
+    echo "Usage: caesar <filename> <rotation>"
+    exit 1
+fi
+
+file=$1
+rot=$2
+
+if [ ! -f "$file" ]; then
+    echo "File $file does not exist."
+    exit 1
+fi
+
+data=$(<$file)
+caesar "$data" $rot
