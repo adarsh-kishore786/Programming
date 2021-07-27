@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Shift a string to left
+echo "Shifting a string to the left:"
+string="abcdefghijklmnopqrstuvwxyz"
+for i in $(seq 0 $(( ${#string} - 1 )) )
+do
+    echo ${string:${i}}
+done
+
+echo ""
+echo "Shifting a string to the right:"
+# Shift a string to right using substr
+for i in $(seq 0 $(( ${#string} - 1 )) )
+do
+	echo ${string:0:$(( ${#string} - i ))}
+done
+
+echo ""
+echo "Drawing a pyramid:"
+# Drawing a pyramid
+for i in $(seq 0 $(( ${#string} - 1 )) )
+do
+    echo ${string:0:$(($i+1))}
+done
+
+for i in $(seq 1 $(( ${#string} - 1 )) )
+do
+    echo ${string:0:$(( ${#string} - i ))}
+done
+

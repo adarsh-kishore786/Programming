@@ -1,0 +1,24 @@
+#!/bin/bash
+
+s="abcde fghij"
+
+# Capitalizes the string
+echo "Capitalize whole string:"
+echo ${s^^}
+
+pyramid="a ab abc abcd abcde abcdef abcdefg abcdefgh abcdefghi abcdefghij"
+echo ${pyramid^^}
+
+# Capitalize only first letter of each string
+echo ""; echo "Capitalize first letter:"
+echo ${s^}
+echo ${pyramid^}
+
+# Convert to lowercase
+echo ""; echo "To lowercase:"
+S="ABC"
+echo "${S} to ${S,,}"
+
+# Convert only first letter to lowercase
+echo ""; echo "Only first letter to lowercase:"
+echo "${S} to ${S,}"

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+seq()
+{
+    local length="$1"
+    for i in $( eval echo {0..$(( ${length} - 1 ))} )
+    do
+	echo ${i};
+    done
+}
+
+anagram()
+{
+    local instr="$@"
+    for i in $( seq ${#instr} | sort --random-sort )
+    do
+	var=${instr:${i}:1}
+	echo -n $var
+    done
+    echo ""
+}
+
+if [[ $# -eq 0 ]]; then 
+    echo "Usage: $0 <string>"
+    exit 1
+fi
+
+anagram "$@"
