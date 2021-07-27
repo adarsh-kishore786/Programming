@@ -22,12 +22,19 @@ seq()
 
 caesar()
 {
-    local instr="$@"
+    local instr="$1"
     local rot=$2
     for i in $( seq ${instr} )
     do
 	var=${instr:$i:1}
-	chr $(( ($(ord ${var}) + $rot) % 256 ))
+	ascii=$(ord ${var})
+	local newascii=$ascii;
+	if [[ ${ascii} -ge 65 ]] && [[ ${ascii} -le 90 ]]; then
+	    newascii=$(( $(( $(( ${ascii} - 65 + ${rot} )) % 26 )) + 65 ))
+	elif [[ ${ascii} -ge 97 ]] && [[ ${ascii} -le 122 ]]; then
+	    newascii=$(( $(( $(( ${ascii} - 97 + ${rot} )) % 26 )) + 97 ))	
+	fi
+	chr ${newascii}
     done
     echo ""
 }
