@@ -1,80 +1,52 @@
-/*
-	average.cpp
-*/
-
 #include <iostream>
+#include <cstdint>
+
+using int32 = std::int_least32_t;
+using int8  = std::int_least8_t;
 
 class Average
 {
 private:
-	double m_avg {};
-	int m_count {};
+    int32 m_sum {};
+    int8 m_num {};
 
 public:
-	Average(): m_avg {}, m_count {} {}
-	Average(const Average& avg)
-	{
-		m_avg = avg.m_avg;
-		m_count = avg.m_count;
-	}
+    Average& operator+=(int n)
+    {
+        m_sum += n;
+        m_num++;
+        return *this;
+    }
 
-	friend Average& operator+(Average& avg, int val);
-	friend Average& operator+=(Average& avg, int val);
-
-	friend Average& operator-(Average& avg, int val);
-	friend Average& operator-=(Average& avg, int val);
-	friend std::ostream& operator<<(std::ostream& out, const Average& avg);
+    friend std::ostream& operator<<(std::ostream& out, const Average& av);
 };
 
-Average& operator+(Average& avg, int val)
+std::ostream& operator<<(std::ostream& out, const Average& av)
 {
-	int total = avg.m_avg * avg.m_count + val;
-	avg.m_count++;
-	avg.m_avg = total * 1.0 / avg.m_count;
-
-	return avg;
-}
-
-Average& operator+=(Average& avg, int val)
-{
-	return operator+(avg, val);
-}
-
-Average& operator-(Average& avg, int val)
-{
-	return operator+(avg, -val);
-}
-
-Average& operator-=(Average& avg, int val)
-{
-	return operator+=(avg, -val);
-}
-
-std::ostream& operator<<(std::ostream& out, const Average& avg)
-{
-	out << avg.m_avg << " ";
-	return out;
+    double avg = av.m_sum * 1.0 / av.m_num;
+    std::cout << avg;
+    return out;
 }
 
 int main()
 {
-	Average avg {};
+    Average avg{};
 
 	avg += 4;
-	std::cout << avg << "\n";
+	std::cout << avg << '\n'; // 4 / 1 = 4
 
 	avg += 8;
-	std::cout << avg << "\n";
+	std::cout << avg << '\n'; // (4 + 8) / 2 = 6
 
 	avg += 24;
-	std::cout << avg << "\n";
+	std::cout << avg << '\n'; // (4 + 8 + 24) / 3 = 12
 
-	avg -= 10;
-	std::cout << avg << "\n";
+	avg += -10;
+	std::cout << avg << '\n'; // (4 + 8 + 24 - 10) / 4 = 6.5
 
-	(avg += 6) += 10;
-	std::cout << avg << "\n";
+	(avg += 6) += 10; // 2 calls chained together
+	std::cout << avg << '\n'; // (4 + 8 + 24 - 10 + 6 + 10) / 6 = 7
 
-	Average copy { avg };
-	std::cout << copy << "\n";
+	Average copy{ avg };
+	std::cout << copy << '\n';
 }
