@@ -22,3 +22,16 @@ take' n xs
     | n <= 0 = []
     | n >= fromIntegral (length xs) = xs
     | otherwise = head xs : take' (n-1) (tail xs)
+
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = reverse' xs ++ [x]
+
+zip' :: [a] -> [b] -> [(a, b)]
+zip' _ [] = []
+zip' [] _ = []
+zip' (x:xs) (y:ys) = [(x, y)] ++ zip' xs ys
+
+elem' :: (Eq a) => a -> [a] -> Bool
+elem' _ [] = False
+elem' e (x:xs) = (e == x) || elem' e xs
