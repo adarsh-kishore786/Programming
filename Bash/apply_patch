@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Once a patch is created, it can be applied
+patch file1.txt patch_no_options.patch

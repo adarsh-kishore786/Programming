@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# A patch after applying can be reversed also
+patch -p0 -R -i patch_u.patch
+

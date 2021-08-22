@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# A patch basically takes the output from a diff of two 
+# files and stores it. It then can be applied to the 
+# original file to make it identical to the second file
+# It is useful when the original file is expensive to 
+# send
+
+diff file1.txt file2.txt > patch_no_options.patch
+diff -u file1.txt file2.txt > patch_u.patch
+diff -y file1.txt file2.txt > patch_y.patch

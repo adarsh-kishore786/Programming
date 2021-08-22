@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# The general syntax of using diff is 
+# diff [options] [original filename] [changed filename]
+
+echo "With no options:"
+diff file1.txt file2.txt
+echo ""
+
+echo "With option -u (For easier to read format):"
+diff -u file1.txt file2.txt
+echo ""
+
+echo "With option -y (For forcing differences side by side:"
+diff -y file1.txt file2.txt

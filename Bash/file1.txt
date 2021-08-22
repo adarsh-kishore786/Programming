@@ -1,0 +1,6 @@
+This is a sample file for testing.
+The second line is unchanged.
+
+The third line is empty as can be seen.
+The fourth line: Hello World!
+
