@@ -1,59 +1,44 @@
-/* fibonacci_words.c
+/* fibbonaci_words.c
 
-   This program accepts two letters
-   from the user and generates a 
-   Fibonacci series using them.
+   This program prints the fibonacci
+   sequence starting with two terms
+   entered by user.
 
    Author: Adarsh
 */
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
-int max_len = 128;
-
-void fibonacci(char *f0, char *f1, int count)
+void fibonacci(char* f_0, char* f_1, int count)
 {
-	if (count == 0)
-		return;
+    if (count == 0)
+        return;
 
-    printf("%s ", f0);
-
-    if (strlen(f0) + strlen(f1) >= max_len)
-    {
-    	max_len += strlen(f0) + strlen(f1);
-    	f0 = realloc(f0, max_len * sizeof(char));
-    	f1 = realloc(f1, max_len * sizeof(char));
-    }
-
-    strrev(strcat(strrev(f0), strrev(f1)));
-    strrev(f1);
-
-    fibonacci(f1, f0, count - 1);
+    printf("%s ", f_1);
+    char *f_temp = f_1;
+    strcat(f_1, f_0);
+    f_0 = f_temp;
+    fibonacci(f_0, f_1, count - 1);
 }
 
 int main()
 {
-	char *f0, *f1;
-	int count;
+    char *f_0 = malloc(100*sizeof(char));
+    char *f_1 = malloc(100*sizeof(char));
+    int n;
 
-	f0 = malloc(max_len * sizeof(char));
-	f1 = malloc(max_len * sizeof(char));
+    printf("Enter the first character of the sequence:\n");
+    gets(f_0);
 
-	printf("Enter two letters/words:\n");
-	gets(f0);
-	fflush(stdin);
+    printf("Enter the second character of the sequence:\n");
+    gets(f_1);
 
-	gets(f1);
-	fflush(stdin);
+    printf("Enter number of terms:\n");
+    scanf("%d", &n);
 
-	printf("Enter the number of terms:\n");
-	scanf("%d", &count);
-	fflush(stdin);
-
-	printf("\nThe Fibonacci series starting with these:\n");
-	fibonacci(f0, f1, count);
-
-	exit(0);
+    printf("The Fibonacci Series with these initial conditions:\n");
+    printf("%s ", f_0);
+    fibonacci(f_0, f_1, n);
 }

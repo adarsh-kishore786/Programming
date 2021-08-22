@@ -1,52 +1,40 @@
-/*
-	reverse_array.c
+/* reverse_array.c
 
-	This program accepts an array entered
-	by user and prints it in reverse.
+   This program accepts an array entered
+   by the user and copies it into another
+   array in the reverse order.
+
+   Author: Adarsh
 */
 
-#include <stdio.h>
-#include <stdlib.h>
+# include <stdio.h>
+# include <stdlib.h>
 
-void swap(int *x, int *y)
+int main()
 {
-	*x = *x ^ *y;
-	*y = *x ^ *y;
-	*x = *x ^ *y;
-}
+    int length, *p;
 
-void reverse_array(int *ar, int l)
-{
-	int first, last;
-	for (first = 0, last = l - 1; first < last; first++, last--)
-		swap(ar + first, ar + last);
-}
+    printf("Enter the size of the array:\n");
+    scanf("%d", &length);
 
-void print_array(int *ar, int l)
-{
-	for (int i = 0; i < l; i++)
-		printf("%d ", ar[i]);
-	printf("\n");
-}
+    p = (int*) malloc(length * sizeof(int));
 
-int main(int argc, char **argv)
-{
-	if (argc == 1)
-	{
-		printf("No array entered. Try again.\n");
-		return 1;
-	}
+    for (int i = 0; i < length; i++)
+    {
+        printf("Enter a number: ");
+        scanf("%d", p + i);
+    }
 
-	int n = argc - 1;
-	int ar[n];
+    printf("The array you entered:\n");
+    for (int i = 0; i < length; i++)
+        printf("%d. %d\n", (i + 1), p[i]);
 
-	for (int i = 0; i < n; i++)
-		ar[i] = atoi(argv[i + 1]);
+    int* reverse = (int*) malloc(length * sizeof(int));
 
-	printf("Original array: ");
-	print_array(ar, n);
+    for (int i = 0; i < length; i++)
+        (length - i - 1)[reverse] = *(p + i);
 
-	reverse_array(ar, n);
-	printf("Reversed array: ");
-	print_array(ar, n);
+    printf("\nThe array in reverse:\n");
+    for (int i = 0; i < length; i++)
+        printf("%d. %d\n", (i + 1), reverse[i]);
 }

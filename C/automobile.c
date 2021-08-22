@@ -100,17 +100,15 @@ int main()
 
     for (int i = start; i <= end; i++)
     {
-    	char c[] = "ABC";
-    	decimal_to_hex(i, c);
+        char c[] = "ABC";
+        decimal_to_hex(i, c);
+        char *s = c;
+        char *m = "Iron";
 
-    	int d = i - start;
-
-    	(engines + d)->s_no = malloc(4 * sizeof(char));
-    	(engines + d)->material = malloc(6 * sizeof(char));
-
-        strcpy((engines + d)->s_no, c);
+        int d = i - start;
+        (engines + d)->s_no = c;
         (engines + d)->year_of_manufacture = 2010;
-        strcpy((engines + d)->material, "Iron");
+        (engines + d)->material = "Iron";
         (engines + d)->quantity = 10;
     }
 
