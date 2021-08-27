@@ -68,3 +68,36 @@ group' = group
 
 numOccurence :: (Ord a) => [a] -> [(a, Int)]
 numOccurence l = map (\l@(x:xs) -> (x, length l)) . group . sort $ l
+
+-- inits and tails are like init and tail only, except they apply
+-- those functions recursively until they exhaust the array
+l = inits "woot"
+l' = tails "woot"
+
+-- a substring searcher implementing isInfixOf
+search :: (Eq a) => [a] -> [a] -> Bool
+search substr str =
+    let l = length substr
+    in foldl (\acc x -> if take l x == substr then True else acc) False (tails str)
+
+-- isPrefixOf and isSuffixOf search for a sublist at the beginning or end of
+-- list
+isPrefixOf' :: (Eq a) => [a] -> [a] -> Bool
+isPrefixOf' substr str =
+    let l = length substr
+    in foldl (\acc x -> if take l x == substr then True else acc) False (inits str)
+
+isSuffixOf' :: (Eq a) => [a] -> [a] -> Bool
+isSuffixOf' substr str =
+    let l = length substr
+    in isPrefixOf' (reverse substr) (reverse str)
+
+-- elem and notElem check if an elements is or isn't inside a list
+
+-- partition retruns a 2-tuple, the first one is basically those for which some
+-- boolean function returns true, second for those which return false
+partition' :: (Eq a) => (a -> Bool) -> [a] -> ([a], [a])
+partition' p list = ( [ x | x <- list, p x == True], [x | x <- list, p x == False])
+
+-- find function returns the first instance of occurence of a value in a
+-- list which satisfies a given predicate, its return type is Maybe
