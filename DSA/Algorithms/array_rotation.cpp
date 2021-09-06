@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// the time complexity of this is O(n)
 void rotate(int **arr, int d, int n)
 {
     int *arr_new = new int[n];
