@@ -21,4 +21,4 @@ data Day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday |       S
 
 -- We can compare them, print them, read them
 dayList = [Thursday .. Sunday]
-dayList' = [minBound .. maxBound] :: [Day]
+dayList' = [minBound .. maxB,ound] :: [Day]
