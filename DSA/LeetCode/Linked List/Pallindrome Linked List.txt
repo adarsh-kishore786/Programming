@@ -31,4 +31,19 @@ public:
         
         return tail;
     }
+    
+    bool isPalindrome(ListNode* head) {
+        ListNode* tail = reverseList(head);
+        
+        while (head && tail)
+        {
+            if (head->val != tail->val)
+                return false;
+            
+            head = head->next;
+            tail = tail->next;
+        }
+        
+        return true;
+    }
 };

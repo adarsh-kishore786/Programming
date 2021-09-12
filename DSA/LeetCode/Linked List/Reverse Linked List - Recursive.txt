@@ -16,19 +16,14 @@ public:
         if (!head->next)
             return head;
         
-        ListNode* currNode = head;
-        ListNode* tail { new ListNode(head->val) };
+        ListNode* revNode = reverseList(head->next);
+        ListNode* newNode = new ListNode(head->val);
         
-        while (currNode)
-        {
-            if (!currNode->next)
-                break;
-            
-            ListNode* newTail { new ListNode(currNode->next->val, tail) };
-            tail = newTail;
+        ListNode *currNode = revNode;
+        while (currNode->next)
             currNode = currNode->next;
-        }
+        currNode->next = newNode;
         
-        return tail;
+        return revNode;
     }
 };
