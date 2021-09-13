@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.empty())
+            return 0;
+            
+        int count = 0;
+        for (auto index = nums.begin() + 1; index != nums.end(); index++)
+        {
+            if (*index == nums[count])
+                continue;
+            
+            nums[++count] = *index;
+        }
+        return count + 1;
+    }
+};
