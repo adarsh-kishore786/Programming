@@ -1,0 +1,12 @@
+#!/bin/bash
+
+while getopts 'abcdhf:' flag; do
+    case "${flag}" in
+	a) echo "a flag selected";;
+	b) echo "b flag selected";;
+	c) echo "c flag selected";;
+	d) echo "d flag selected";;
+	h) echo "h flag selected";;
+	f) echo "f flag selected";;
+    esac
+done
