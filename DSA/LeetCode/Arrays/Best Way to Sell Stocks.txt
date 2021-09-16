@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit = 0;
+        
+        int cp = 0;
+        int sp = 0;
+        
+        bool cp_got = false;
+        
+        int l = prices.size();
+        
+        for (int i = 0; i < l; i++)
+        {
+            if (i != l - 1 && prices[i] < prices[i+1] && !cp_got)
+            {
+                cp = prices[i];
+                cp_got = true;
+            }
+            else if (i != 0 && prices[i] > prices[i-1])
+                sp = prices[i];
+            
+            if (i == l - 1 || prices[i] > prices[i+1])
+            {
+                profit += (sp - cp);
+                sp = cp = 0;
+                cp_got = false;
+            }
+        }
+        return profit;
+    }
+};
