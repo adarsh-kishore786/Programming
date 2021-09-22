@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Events: Task 3</title>
+    <style>
+      p {
+        color: purple;
+        margin: 0.5em 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      button {
+        display: block;
+        margin: 20px 0 20px 20px;
+      }
+
+      .button-bar {
+        padding: 20px 0;
+      }
+    </style>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+
+    <section class="preview">
+    </section>
+
+    <div class="button-bar">
+      <button class="red">Red</button>
+      <button class="yellow">Yellow</button>
+      <button class="green">Green</button>
+      <button class="purple">Purple</button>
+    </div>
+
+  </body>
+  <script>
+
+  let buttonBar = document.querySelector('.button-bar');
+
+  let redButton = document.querySelector(".red");
+  let greenButton = document.querySelector(".green");
+  let yellowButton = document.querySelector(".yellow");
+  let purpleButton = document.querySelector(".purple");
+
+
+  redButton.onclick = function() {
+      document.body.style.backgroundColor = "red";
+      console.log(redButton.innerHTML);
+  }
+
+  greenButton.onclick = function() {
+      document.body.style.backgroundColor = "green";
+      console.log(greenButton.innerHTML);
+  }
+
+  purpleButton.onclick = function() {
+      document.body.style.backgroundColor = "purple";
+      console.log(purpleButton.innerHTML);
+  }
+
+  yellowButton.onclick = function() {
+      document.body.style.backgroundColor = "yellow";
+      console.log(yellowButton.innerHTML);
+  }
+  </script>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Events: Task 1</title>
+    <style>
+      p {
+        color: purple;
+        margin: 0.5em 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      button {
+        display: block;
+        margin: 20px 0 20px 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <section class="preview">
+    </section>
+
+    <button class="off">Machine is off</button>
+
+  </body>
+  <script>
+    let btn = document.querySelector('.off');
+
+    // Add your code here
+    btn.onclick = function() {
+        if (btn.innerHTML.indexOf("off") !== -1)
+            btn.innerHTML = btn.innerHTML.replace("off", "on");
+        else
+            btn.innerHTML = btn.innerHTML.replace("on", "off");
+    }
+  </script>
+
+</html>
