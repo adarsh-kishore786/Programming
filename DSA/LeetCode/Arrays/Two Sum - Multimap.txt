@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        multimap<int, int> m {};
+        
+        for (int i = 0; i < nums.size(); i++)
+            m.insert(pair<int, int>(nums[i], i));
+        
+        
+        vector<int> res {};
+        for (auto itr = m.begin(); itr != m.end(); itr++)
+        {
+            // cout << itr->first << ": " << itr->second << "\n";
+            int x = itr->first;
+            vector<int> v = {x};
+            //cout << "x = " << x << "\n";
+            int y = target - x;
+            //cout << "y = " << y << "\n";
+            auto fitr = m.find(y);
+            if (fitr == itr)
+            {
+                while (fitr != m.end())
+                {
+                    fitr++;
+                    if (fitr->first == y)
+                        break;
+                }
+            }
+            if (fitr != m.end() && fitr != itr)
+            {
+                //cout << "fitr = " << fitr->first << ": " << fitr->second << "\n";
+                res.push_back(itr->second);
+                res.push_back(fitr->second);
+                return res;
+            }
+        }
+        return nums;
+    }
+};
