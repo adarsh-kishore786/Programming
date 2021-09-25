@@ -1,0 +1,79 @@
+class Solution {
+public:
+    bool checkRow(vector<vector<char>>& board, int pos) 
+    {
+        set<char> cache {};
+        for (int i = 0; i < board[pos].size(); i++)
+        {
+            if (board[pos][i] == '.')
+                continue;
+            if (cache.find(board[pos][i]) != cache.end())
+                return false;
+            cache.insert(board[pos][i]);
+        }
+        return true;
+    }
+    
+    bool checkRows(vector<vector<char>>& board)
+    {
+        for (int i = 0; i < board.size(); i++)
+            if (!checkRow(board, i)) 
+                return false;
+        return true;
+    }
+    
+    bool checkCol(vector<vector<char>>& board, int pos)
+    {
+        set<char> cache {};
+        for (int i = 0; i < board.size(); i++)
+        {
+            if (board[i][pos] == '.')
+                continue;
+            if (cache.find(board[i][pos]) != cache.end())
+                return false;
+            cache.insert(board[i][pos]);
+        }
+        return true;
+    }
+    
+    bool checkCols(vector<vector<char>>& board)
+    {
+        for (int i = 0; i < board[0].size(); i++)
+            if (!checkCol(board, i))
+                return false;
+        return true;
+    }
+    
+    bool checkBlock(vector<vector<char>>& board, int x_index, int y_index)
+    {
+        set<char> cache {};
+        for (int i = 3 * x_index; i < 3 * (x_index + 1); i++)
+        {
+            for (int j = 3 * y_index; j < 3 * (y_index + 1); j++)
+            {
+                if (board[i][j] == '.')
+                    continue;
+                if (cache.find(board[i][j]) != cache.end())
+                    return false;
+                cache.insert(board[i][j]);
+            }
+        }
+        return true;
+    }
+    
+    bool checkBlocks(vector<vector<char>>& board)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+                if (!checkBlock(board, i, j))
+                    return false;
+        }
+        return true;
+    }
+    
+    bool isValidSudoku(vector<vector<char>>& board) 
+    {
+        return checkRows(board) && checkCols(board) && checkBlocks(board);
+    }
+};
