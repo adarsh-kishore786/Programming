@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void transpose(vector<vector<int>>& matrix) {
+        int l = matrix.size();
+        for (int i = 0; i < l; i++) {
+            for (int j = i + 1; j < l; j++)
+                tie(matrix[i][j], matrix[j][i]) = make_pair(matrix[j][i], matrix[i][j]);
+        }
+    }
+    
+    void vFlip(vector<vector<int>>& matrix) {
+        int l = matrix.size();
+        for (int i = 0; i < l / 2; i++)
+        {
+            for (int j = 0; j < l; j++)
+                tie(matrix[i][j], matrix[l - i - 1][j]) = 
+                    make_pair(matrix[l - i - 1][j], matrix[i][j]);
+        }
+    }
+    
+    void rotate(vector<vector<int>>& matrix) {
+        vFlip(matrix);
+        transpose(matrix);
+    }
+};
