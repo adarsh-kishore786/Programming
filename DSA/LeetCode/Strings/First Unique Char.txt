@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        string cache {};
+        for (int i = 0; i < s.size(); i++)
+        {
+            if (find(cache.begin(), cache.end(), s[i]) != cache.end())
+                continue;
+            bool flag = false;
+            for (int j = i + 1; j < s.size(); j++)
+            {
+                if (s[i] == s[j])
+                {
+                    cache.push_back(s[i]);
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+                return i;
+        }
+        return -1;
+    }
+};
