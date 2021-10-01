@@ -1,0 +1,13 @@
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int pos = 0;
+        for (int jump_size = n / 2; jump_size >= 1; jump_size /= 2)
+            while (pos < n - jump_size && !isBadVersion(pos + jump_size))
+                pos += jump_size;
+        return pos + 1;
+    }
+};
