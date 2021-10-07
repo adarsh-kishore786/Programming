@@ -8,7 +8,7 @@
 #include "Practical.h"
 
 void sockExists(int sock)
-{
+{x
     if (sock < 0)
         DieWithSystemMessage("Failed to create socket");
 }
