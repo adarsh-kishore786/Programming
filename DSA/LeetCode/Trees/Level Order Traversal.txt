@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void printVec(vector<vector<int>>& vec) {
+        for (int i = 0; i < vec.size(); i++) {
+            for (int j = 0; j < vec[i].size(); j++)
+                std::cout << vec[i][j] << " ";
+            std::cout << "\n";
+        }    
+    }
+    
+    int getHeight(TreeNode* root) {
+        if (!root)
+            return 0;
+        return 1 + std::max(getHeight(root->left), getHeight(root->right));
+    }
+    
+    void traverse(TreeNode* root, vector<vector<int>>& vec, int index) {
+        if (!root)
+            return;
+        
+        vec[index].push_back(root->val);
+        traverse(root->left, vec, index+1);
+        traverse(root->right, vec, index+1);
+    }
+    
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> vec(getHeight(root));
+        
+        traverse(root, vec, 0);
+        //printVec(vec);
+        return vec;
+    }
+};
