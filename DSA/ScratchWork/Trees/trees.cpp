@@ -54,27 +54,28 @@ int maxDepth(TreeNode* root) {
     return 1 + std::max(maxDepth(root->left), maxDepth(root->right));
 }
 
-int minValue(TreeNode* root) {
-    if (!root) return 0;
-    if (!root->left) return root->val;
-    return minValue(root->left);
-}
+// int minValue(TreeNode* root) {
+//     if (!root) return 0;
+//     if (!root->left) return root->val;
+//     return minValue(root->left);
+// }
 
-int main() {
-    TreeNode* root = newNode(5);
-    root = insert(root, 10);
-    root = insert(root, 3);
-    root = insert(root, -5);
-
-    // std::cout << root->right->val << std::endl;
-    printTreeInOrder(root);
-    std::cout << "\n";
-    printTreePreOrder(root);
-    std::cout << "\n";
-    printTreePostOrder(root);
-    std::cout << "\n";
-
-    std::cout << "Size: " << size(root) << "\n";
-    std::cout << "Max Depth: " << maxDepth(root) << "\n";
-    std::cout << "Min Value: " << min
-}
+// int main() {
+//     TreeNode* root = newNode(5);
+//     root = insert(root, 10);
+//     root = insert(root, 3);
+//     root = insert(root, -5);
+//
+//     // std::cout << root->right->val << std::endl;
+//     std::cout << "In Order: ";
+//     printTreeInOrder(root);
+//     std::cout << "\nPre Order: ";
+//     printTreePreOrder(root);
+//     std::cout << "\nPost Order: ";
+//     printTreePostOrder(root);
+//     std::cout << "\n";
+//
+//     std::cout << "Size: " << size(root) << "\n";
+//     std::cout << "Max Depth: " << maxDepth(root) << "\n";
+//     std::cout << "Min Value: " << minValue(root) << "\n";
+// }
