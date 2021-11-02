@@ -1,0 +1,13 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); i++) {
+            int pos = i;
+            for (int j = i + 1; j < nums.size(); j++) {
+                if (nums[j] < nums[pos])
+                    pos = j;
+            }
+            tie(nums[i], nums[pos]) = make_pair(nums[pos], nums[i]);
+        }
+    }
+};
