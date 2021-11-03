@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int height(TreeNode *root) {
+        if (!root) return 0;
+        return 1 + std::max(height(root->left), height(root->right));
+    }
+    
+    void helper(TreeNode* root, vector<vector<int>>& v, int level) {
+        if (!root) return;
+        
+        if (level % 2 == 0) 
+            v[level].push_back(root->val);
+        else
+            v[level].insert(v[level].begin(), root->val);
+        helper(root->left, v, level+1);
+        helper(root->right, v, level+1);
+    }
+    
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if (!root) return {};
+        vector<vector<int>> v(height(root));
+        helper(root, v, 0);
+        return v;
+    }
+};
