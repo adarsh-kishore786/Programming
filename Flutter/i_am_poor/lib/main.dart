@@ -26,7 +26,7 @@ void main() {
           )
         ]
       ),
-      backgroundColor: Colors.green[600]
+      backgroundColor: Colors.green[600],
     ),
   ));
 }
