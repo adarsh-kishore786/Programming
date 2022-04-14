@@ -1,0 +1,4 @@
+#!/bin/bash
+
+g++ -o DisjointSet DisjointSet.cpp Node.cpp
+./DisjointSet
