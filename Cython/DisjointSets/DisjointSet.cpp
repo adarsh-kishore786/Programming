@@ -3,6 +3,50 @@
 #include <map>
 #include "DisjointSet.h"
 
+Node::Node(int value) {
+  this->val = value;
+  this->parent = this;
+  this->rank = 0;
+}
+
+Node::Node(): Node::Node(0) {}
+
+Node::~Node() {
+  delete this->parent;
+}
+
+int Node::getValue() {
+  return this->val;
+}
+
+Node* Node::getParent() {
+  return this->parent->val;
+}
+
+int Node::getRank() {
+  return this->rank;
+}
+
+void Node::setValue(int val) {
+  this->val = val;
+}
+
+void Node::setRank(int rank) {
+  this->rank = rank;
+}
+
+void Node::setParent(Node* parent) {
+  this->parent = parent;
+}
+
+std::ostream& operator<<(std::ostream& out, const Node* node) {
+  out << "Value : " << node->val << std::endl;
+  out << "Parent: " << node->parent << std::endl;
+  out << "Rank  : " << node->rank << std::endl << std::endl;
+  return out;
+}
+
+
 DisjointSet::DisjointSet() {
   this->nodes = {};
 }
@@ -27,8 +71,8 @@ void DisjointSet::unionSet(int i, int j) {
   Node** y = &this->nodes[j];
 
 
-  Node* t_x = this->findSet(i);
-  Node* t_y = this->findSet(j);
+  Node* t_x = &this->nodes[this->findSet(i)];
+  Node* t_y = &this->nodes[this->findSet(j)];
 
   Node** r_x = &t_x;
   Node** r_y = &t_y;
@@ -69,6 +113,18 @@ std::map<int, std::vector<Node*>> DisjointSet::components() {
   return components;
 }
 
+std::ostream& operator<<(std::ostream& out, DisjointSet ds) {
+  auto components = ds.components();
+  int i = 1;
+  for (const auto& pair : components) {
+    out << "Component " << i++ << ": \n";
+    auto nodes_ = pair.second;
+    for (auto& e : nodes_)
+      out << e;
+  }
+  return out;
+}
+
 int main() {
   DisjointSet ds;
 
@@ -86,12 +142,5 @@ int main() {
 
   std::cout << "Number of connected components: " << ds.numComponents() << std::endl;
   std::cout << "\nThe components:" << std::endl;
-  auto components = ds.components();
-  int i = 1;
-  for (const auto& pair : components) {
-    std::cout << "Component " << i++ << ": \n";
-    auto nodes_ = pair.second;
-    for (auto& e : nodes_)
-      std::cout << e;
-  }
+  std::cout << ds << std::endl;
 }

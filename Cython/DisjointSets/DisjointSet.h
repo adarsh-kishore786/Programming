@@ -4,7 +4,28 @@
 #include <vector>
 #include <iostream>
 #include <map>
-#include "Node.h"
+
+class Node {
+private:
+  int val;
+  Node* parent;
+  int rank;
+
+public:
+  Node();
+  Node(int);
+  ~Node();
+
+  int getValue();
+  Node* getParent();
+  int getRank();
+
+  void setValue(int);
+  void setParent(Node*);
+  void setRank(int);
+
+  friend std::ostream& operator<<(std::ostream& out, const Node*);
+};
 
 class DisjointSet {
 private:
@@ -22,6 +43,7 @@ public:
 
   int numComponents();
   std::map<int, std::vector<Node*>> components();
+  friend std::ostream& operator<<(std::ostream&, const DisjointSet);
 };
 
 #endif
